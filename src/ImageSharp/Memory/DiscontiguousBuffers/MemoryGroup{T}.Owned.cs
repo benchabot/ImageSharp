@@ -60,7 +60,10 @@ namespace SixLabors.ImageSharp.Memory
             IEnumerator<Memory<T>> IEnumerable<Memory<T>>.GetEnumerator()
             {
                 this.EnsureNotDisposed();
-                return this.memoryOwners.Select(mo => mo.Memory).GetEnumerator();
+                for (int i = 0; i < this.Count; i++)
+                {
+                    yield return this.memoryOwners[i].Memory;
+                }
             }
 
             public override void Dispose()
